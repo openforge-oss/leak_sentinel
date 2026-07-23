@@ -1,0 +1,31 @@
+name: Dependency Audit
+
+# Weekly (and on-demand) visibility into out-of-date dependencies. Dependabot
+# opens the actual bump PRs; this job surfaces the full outdated report in one
+# place. Informational — it does not gate merges.
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  outdated:
+    name: Report outdated packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Plugin — outdated
+        run: |
+          dart pub get
+          dart pub outdated
+      - name: Example — outdated
+        working-directory: example
+        run: |
+          flutter pub get
+          flutter pub outdated

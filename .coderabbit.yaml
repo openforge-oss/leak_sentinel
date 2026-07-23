@@ -1,0 +1,32 @@
+# CodeRabbit configuration — https://docs.coderabbit.ai/guides/configure-coderabbit
+# Takes effect once the CodeRabbit GitHub App is installed on the organization.
+language: en-US
+early_access: false
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  review_status: true
+  poem: false
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+      - develop
+  path_instructions:
+    - path: "lib/**/*.dart"
+      instructions: >-
+        This is a custom_lint plugin. Prefer syntactic (AST) analysis over the
+        analyzer element model. New lint rules should extend ReleaseRule where
+        applicable and MUST ship with expect_lint coverage in example/lib.
+        Scrutinize auto-fixes that could change program behaviour (e.g. disposing
+        a resource that is still in use) and flag any rule likely to produce
+        false positives.
+    - path: "**/*.md"
+      instructions: >-
+        Verify docs stay accurate about the three shipped rules and the tool's
+        stated limitations (explicit type annotations, curated type list,
+        direct `extends State`).
+chat:
+  auto_reply: true
