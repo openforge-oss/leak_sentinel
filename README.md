@@ -1,5 +1,6 @@
 # 🛡️ leak_sentinel
 
+[![pub package](https://img.shields.io/pub/v/leak_sentinel.svg)](https://pub.dev/packages/leak_sentinel)
 [![CI](https://github.com/openforge-oss/leak_sentinel/actions/workflows/ci.yaml/badge.svg)](https://github.com/openforge-oss/leak_sentinel/actions/workflows/ci.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![style: custom_lint](https://img.shields.io/badge/style-custom__lint-navy)](https://pub.dev/packages/custom_lint)
