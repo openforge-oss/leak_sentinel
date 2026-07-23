@@ -1,0 +1,31 @@
+name: 💡 New rule / feature
+description: Suggest a new leak pattern to detect or an improvement.
+labels: [enhancement, needs-triage]
+body:
+  - type: textarea
+    id: pattern
+    attributes:
+      label: The leak pattern
+      description: What gets leaked, and why does the GC not reclaim it?
+      placeholder: A `ValueNotifier` added via `addListener` without a matching `removeListener`…
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example of the offending code
+      render: dart
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: What should the auto-fix do (if any)?
+      placeholder: Insert `x.removeListener(_handler)` into dispose().
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Detection
+      options:
+        - label: This can be detected purely syntactically (from the AST)
+        - label: This needs resolved type information (the element model)

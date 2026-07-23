@@ -1,0 +1,44 @@
+name: 🐛 Bug report
+description: A rule fired when it shouldn't (false positive), missed a real leak (false negative), or an auto-fix produced wrong code.
+labels: [bug, needs-triage]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of bug?
+      options:
+        - False positive (flagged code that is fine)
+        - False negative (missed a real leak)
+        - Bad auto-fix (fix produced wrong/broken code)
+        - Crash / plugin error
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: rule
+    attributes:
+      label: Which rule?
+      placeholder: missing_dispose / uncancelled_subscription / uncancelled_timer
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: The smallest widget/State that shows the problem. This will be formatted as Dart.
+      render: dart
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual
+      placeholder: I expected no warning, but got `missing_dispose` on line 12.
+    validations:
+      required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions
+      description: Output of `flutter --version` and your `leak_sentinel` / `custom_lint` versions.
+      render: shell
+    validations:
+      required: true

@@ -1,0 +1,18 @@
+include: package:lints/recommended.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-raw-types: true
+  errors:
+    # custom_lint (this version) still targets the analyzer's classic element
+    # model, so we intentionally use the pre-`element2` API. Silence the
+    # transition-period deprecations until custom_lint_builder migrates.
+    # Tracked in https://github.com/FlutterForge-V1/leak_sentinel/issues
+    deprecated_member_use: ignore
+
+linter:
+  rules:
+    - prefer_final_locals
+    - directives_ordering
+    - unawaited_futures

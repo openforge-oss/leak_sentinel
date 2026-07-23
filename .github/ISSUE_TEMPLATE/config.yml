@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Questions & ideas
+    url: https://github.com/FlutterForge-V1/leak_sentinel/discussions
+    about: For usage questions and open-ended discussion, please use Discussions.
+  - name: 🔒 Report a security / bad-fix concern privately
+    url: https://github.com/FlutterForge-V1/leak_sentinel/security/advisories/new
+    about: See SECURITY.md — use private vulnerability reporting.

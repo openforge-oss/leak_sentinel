@@ -1,0 +1,17 @@
+name: leak_sentinel_example
+description: Demonstrates the leak_sentinel lint rules firing on real widgets.
+publish_to: none
+version: 1.0.0
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  custom_lint: ^0.8.0
+  leak_sentinel:
+    path: ../
