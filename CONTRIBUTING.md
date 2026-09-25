@@ -101,6 +101,37 @@ runs exactly this, so if it's green locally it'll be green on the PR.
 - Fill in the PR template. Green CI + one maintainer approval merges.
 - Add a bullet to the `[Unreleased]` section of [CHANGELOG.md](CHANGELOG.md).
 
+## Releasing to pub.dev (maintainers)
+
+Releases are automated via GitHub Actions using pub.dev's OIDC publishing — no
+tokens or secrets. The workflow is
+[`.github/workflows/publish.yml`](.github/workflows/publish.yml), triggered by a
+version tag.
+
+**One-time setup** (done for the initial release): on pub.dev →
+`leak_sentinel` → **Admin → Automated publishing**, enable *Publishing from
+GitHub Actions* with repository `openforge-oss/leak_sentinel` and tag pattern
+`v{{version}}`.
+
+**To cut a release:**
+
+1. Bump `version:` in [`pubspec.yaml`](pubspec.yaml) (follow semver).
+2. Move the `[Unreleased]` notes in [`CHANGELOG.md`](CHANGELOG.md) under a new
+   version heading with today's date.
+3. Land those on `main` via PR.
+4. Sanity-check, then tag and push:
+   ```bash
+   dart pub publish --dry-run    # must report 0 warnings
+   git checkout main && git pull
+   git tag v0.1.1                 # must match the new pubspec version
+   git push origin v0.1.1
+   ```
+5. The **Publish to pub.dev** workflow validates and publishes automatically —
+   watch it under the repo's **Actions** tab.
+
+The very first publish was done manually with `dart pub publish` (automated
+publishing can only be configured once a package exists).
+
 ## Coding standards
 
 - `dart format` clean (CI enforces `--set-exit-if-changed`).

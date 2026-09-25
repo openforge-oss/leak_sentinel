@@ -14,7 +14,28 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+*"
 
 jobs:
+  # Skip publishing when this version is already on pub.dev (e.g. the tag marks a
+  # version that was first published manually). Keeps re-tagging idempotent
+  # instead of producing a failed "version already exists" run.
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      exists: ${{ steps.q.outputs.exists }}
+    steps:
+      - id: q
+        run: |
+          VER="${GITHUB_REF_NAME#v}"
+          if curl -sfL "https://pub.dev/api/packages/leak_sentinel/versions/${VER}" -o /dev/null; then
+            echo "Version ${VER} is already on pub.dev — skipping publish."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Version ${VER} is not on pub.dev — will publish."
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
   publish:
+    needs: check
+    if: needs.check.outputs.exists == 'false'
     permissions:
       id-token: write # required for pub.dev OIDC authentication
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
